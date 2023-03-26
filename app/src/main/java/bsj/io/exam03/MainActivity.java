@@ -3,124 +3,93 @@ package bsj.io.exam03;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-    private EditText edit1, edit2;
-    private Button btnAdd, btnSub, btnMul, btnDiv, btnMod;
-    private TextView textResult;
-    private String num1, num2;
-    //    private int result; // 정수로 계산할 때
-    private Double result;  // 실수로 계산할 때
+    TextView text1, text2;
+    Switch switch1;
+    RadioGroup group;
+    RadioButton radio1, radio2, radio3;
+    Button button1, button2;
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("초간단 계산기 (수정)");
+        setTitle("안드로이드 사진 보기");
 
-        edit1 = (EditText) findViewById(R.id.Edit1);
-        edit2 = (EditText) findViewById(R.id.Edit2);
-        btnAdd = (Button) findViewById(R.id.BtnAdd);
-        btnSub = (Button) findViewById(R.id.BtnSub);
-        btnMul = (Button) findViewById(R.id.BtnMul);
-        btnDiv = (Button) findViewById(R.id.BtnDiv);
-        btnMod = (Button) findViewById(R.id.BtnMod);
+        text1 = findViewById(R.id.text1);
+        switch1 = findViewById(R.id.switch1);
 
-        textResult = (TextView) findViewById(R.id.TextResult);
+        text2 = findViewById(R.id.text2);
+        group = findViewById(R.id.group);
+        radio1 = findViewById(R.id.radio1);
+        radio2 = findViewById(R.id.radio2);
+        radio3 = findViewById(R.id.radio3);
 
-        // 더하기
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        button1 = findViewById(R.id.button1);
+        button2 = findViewById(R.id.button2);
+
+        img = findViewById(R.id.img);
+
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (switch1.isChecked() == true) {
+                    text2.setVisibility(View.VISIBLE);
+                    group.setVisibility(View.VISIBLE);
+                    button1.setVisibility(View.VISIBLE);
+                    button2.setVisibility(View.VISIBLE);
+                    img.setVisibility(View.VISIBLE);
+                } else {
+                    text2.setVisibility(View.INVISIBLE);
+                    group.setVisibility(View.INVISIBLE);
+                    button1.setVisibility(View.INVISIBLE);
+                    button2.setVisibility(View.INVISIBLE);
+                    img.setVisibility(View.INVISIBLE);
                 }
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-//                result = Integer.parseInt(num1) + Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) + Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
+            }
+        });
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (group.getCheckedRadioButtonId()) {
+                    case R.id.radio1:
+                        img.setImageResource(R.drawable.pie);
+                        break;
+                    case R.id.radio2:
+                        img.setImageResource(R.drawable.q10);
+                        break;
+                    case R.id.radio3:
+                        img.setImageResource(R.drawable.r11);
+                        break;
+                }
             }
         });
 
-        // 빼기
-        btnSub.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-                //                result = Integer.parseInt(num1) - Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) - Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
+                finish();
             }
         });
 
-        // 곱셈
-        btnMul.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-//                result = Integer.parseInt(num1) * Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) * Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
-            }
-        });
-
-        // 나누기
-        btnDiv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                // 0으로 나눌 시 토스트 메세지와 계산 안함
-                if (edit2.getText().toString().equals("0")) {
-                    Toast.makeText(MainActivity.this, "0으로 나눌 수 없습니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-//                result = Integer.parseInt(num1) / Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) / Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
-            }
-        });
-
-        // 나머지
-        btnMod.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-//                result = Integer.parseInt(num1) % Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) % Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
+                switch1.setChecked(false);
+                radio1.setChecked(false);
+                radio2.setChecked(false);
+                radio3.setChecked(false);
+                img.setImageResource(0);
             }
         });
     }
