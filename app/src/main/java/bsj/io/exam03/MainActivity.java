@@ -1,127 +1,126 @@
 package bsj.io.exam03;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class MainActivity extends AppCompatActivity {
+    EditText edit1, edit2;
+    Button btnadd,btnsub,btnmul,btndiv,btntemp;
+    TextView textresult;
+    String num1,num2;
+    Integer result;
 
-    private EditText edit1, edit2;
-    private Button btnAdd, btnSub, btnMul, btnDiv, btnMod;
-    private TextView textResult;
-    private String num1, num2;
-    //    private int result; // 정수로 계산할 때
-    private Double result;  // 실수로 계산할 때
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("초간단 계산기 (수정)");
 
-        edit1 = (EditText) findViewById(R.id.Edit1);
-        edit2 = (EditText) findViewById(R.id.Edit2);
-        btnAdd = (Button) findViewById(R.id.BtnAdd);
-        btnSub = (Button) findViewById(R.id.BtnSub);
-        btnMul = (Button) findViewById(R.id.BtnMul);
-        btnDiv = (Button) findViewById(R.id.BtnDiv);
-        btnMod = (Button) findViewById(R.id.BtnMod);
+        setTitle("초간단계산기");
 
-        textResult = (TextView) findViewById(R.id.TextResult);
+        edit1 = (EditText) findViewById(R.id.editText1);
+        edit2 = (EditText) findViewById(R.id.editText2);
+        btnadd = (Button) findViewById(R.id.button1);
+        textresult = (TextView) findViewById(R.id.TextResult);
 
-        // 더하기
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        btnsub = (Button)findViewById(R.id.button2);
+        btnmul = (Button)findViewById(R.id.button3);
+        btndiv = (Button)findViewById(R.id.button4);
+        btntemp = (Button)findViewById(R.id.button5);
+
+        btnadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
-//                result = Integer.parseInt(num1) + Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) + Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
+
+                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0)
+                {
+                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    textresult.setText("계산결과: none" );
+                }
+                else {
+                    result = Integer.parseInt(num1) + Integer.parseInt(num2);
+                    textresult.setText("계산결과: " + result.toString());
+                }
             }
         });
 
-        // 빼기
-        btnSub.setOnClickListener(new View.OnClickListener() {
+        btnsub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
-                //                result = Integer.parseInt(num1) - Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) - Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
+                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0)
+                {
+                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    textresult.setText("계산결과: none" );
+                }
+                else {
+                    result = Integer.parseInt(num1) - Integer.parseInt(num2);
+                    textresult.setText("계산결과: " + result.toString());
+                }
             }
         });
 
-        // 곱셈
-        btnMul.setOnClickListener(new View.OnClickListener() {
+        btnmul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
-//                result = Integer.parseInt(num1) * Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) * Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
+                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0)
+                {
+                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    textresult.setText("계산결과: none" );
+                }
+                else {
+                    result = Integer.parseInt(num1) * Integer.parseInt(num2);
+                    textresult.setText("계산결과: " + result.toString());
+                }
             }
         });
 
-        // 나누기
-        btnDiv.setOnClickListener(new View.OnClickListener() {
+        btndiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                // 0으로 나눌 시 토스트 메세지와 계산 안함
-                if (edit2.getText().toString().equals("0")) {
-                    Toast.makeText(MainActivity.this, "0으로 나눌 수 없습니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
-//                result = Integer.parseInt(num1) / Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) / Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
+                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0 ||Integer.parseInt(num2)==0)
+                {
+                    Toast.makeText(getApplicationContext(), "계산할수없습니다.", Toast.LENGTH_SHORT).show();
+                    textresult.setText("계산결과: none" );
+                }
+                else {
+                    result = Integer.parseInt(num1) / Integer.parseInt(num2);
+                    textresult.setText("계산결과: " + result.toString());
+                }
             }
         });
 
-        // 나머지
-        btnMod.setOnClickListener(new View.OnClickListener() {
+        btntemp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 값을 입력하지 않았을 때 오류 메시지 토스트
-                if (edit1.getText().toString().equals("") || edit2.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "숫자를 입력하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 num1 = edit1.getText().toString();
                 num2 = edit2.getText().toString();
-//                result = Integer.parseInt(num1) % Integer.parseInt(num2);   // 정수로 계산할때
-                result = Double.parseDouble(num1) % Double.parseDouble(num2);   // 실수로 계산할때
-                textResult.setText("계산 결과 : " + result);
+                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0)
+                {
+                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
+                    textresult.setText("계산결과: none" );
+                }
+                else {
+                    result = Integer.parseInt(num1) % Integer.parseInt(num2);
+                    textresult.setText("계산결과: " + result.toString());
+                }
             }
         });
+
+
     }
 }
