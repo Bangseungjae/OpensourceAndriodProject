@@ -6,121 +6,95 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    EditText edit1, edit2;
-    Button btnadd,btnsub,btnmul,btndiv,btntemp;
-    TextView textresult;
-    String num1,num2;
-    Integer result;
-
+    CheckBox check1;
+    TextView text1,text2;
+    RadioGroup radioGroup;
+    RadioButton rbtn1,rbtn2,rbtn3;
+    Button btn1;
+    ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("초간단계산기");
+        setTitle("애완동물 사진보기");
+        check1 = findViewById(R.id.check1);
+        text1 = findViewById(R.id.text1);
+        text2 = findViewById(R.id.text2);
+        radioGroup = findViewById(R.id.radiogroup);
+        rbtn1 = findViewById(R.id.rbtn1);
+        rbtn2 = findViewById(R.id.rbtn2);
+        rbtn3 = findViewById(R.id.rbtn3);
+        btn1 = findViewById(R.id.btn1);
+        image = findViewById(R.id.image);
 
-        edit1 = (EditText) findViewById(R.id.editText1);
-        edit2 = (EditText) findViewById(R.id.editText2);
-        btnadd = (Button) findViewById(R.id.button1);
-        textresult = (TextView) findViewById(R.id.TextResult);
 
-        btnsub = (Button)findViewById(R.id.button2);
-        btnmul = (Button)findViewById(R.id.button3);
-        btndiv = (Button)findViewById(R.id.button4);
-        btntemp = (Button)findViewById(R.id.button5);
-
-        btnadd.setOnClickListener(new View.OnClickListener() {
+        // 라디오 박스 클릭시마다 이미지 변경
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-
-                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0)
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if(i == R.id.rbtn1)
                 {
-                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    textresult.setText("계산결과: none" );
+                    image.setImageResource(R.drawable.dog);
                 }
-                else {
-                    result = Integer.parseInt(num1) + Integer.parseInt(num2);
-                    textresult.setText("계산결과: " + result.toString());
+                else if(i == R.id.rbtn2)
+                {
+                    image.setImageResource(R.drawable.cat);
+                }
+                else
+                {
+                    image.setImageResource(R.drawable.rabbit);
                 }
             }
         });
 
-        btnsub.setOnClickListener(new View.OnClickListener() {
+
+        // 선택완료 버튼을 클릭 하면 이미지 변경
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0)
+                switch(radioGroup.getCheckedRadioButtonId())
                 {
-                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    textresult.setText("계산결과: none" );
-                }
-                else {
-                    result = Integer.parseInt(num1) - Integer.parseInt(num2);
-                    textresult.setText("계산결과: " + result.toString());
+                    case R.id.rbtn1 : image.setImageResource(R.drawable.dog);
+                        break;
+                    case R.id.rbtn2 : image.setImageResource(R.drawable.cat);
+                        break;
+                    case R.id.rbtn3 : image.setImageResource(R.drawable.rabbit);
+                        break;
                 }
             }
         });
 
-        btnmul.setOnClickListener(new View.OnClickListener() {
+        // onclick으로도 가능하다. ischeecked() 사용
+        check1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0)
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b == true)
                 {
-                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    textresult.setText("계산결과: none" );
+                    text2.setVisibility(View.VISIBLE);
+                    radioGroup.setVisibility(View.VISIBLE);
+                    btn1.setVisibility(View.VISIBLE);
+                    image.setVisibility(View.VISIBLE);
                 }
-                else {
-                    result = Integer.parseInt(num1) * Integer.parseInt(num2);
-                    textresult.setText("계산결과: " + result.toString());
+                else
+                {
+
+                    text2.setVisibility(View.INVISIBLE);
+                    radioGroup.setVisibility(View.INVISIBLE);
+                    btn1.setVisibility(View.INVISIBLE);
+                    image.setVisibility(View.INVISIBLE);
                 }
             }
         });
-
-        btndiv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0 ||Integer.parseInt(num2)==0)
-                {
-                    Toast.makeText(getApplicationContext(), "계산할수없습니다.", Toast.LENGTH_SHORT).show();
-                    textresult.setText("계산결과: none" );
-                }
-                else {
-                    result = Integer.parseInt(num1) / Integer.parseInt(num2);
-                    textresult.setText("계산결과: " + result.toString());
-                }
-            }
-        });
-
-        btntemp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                num1 = edit1.getText().toString();
-                num2 = edit2.getText().toString();
-                if(edit1.getText().toString().length() == 0 || edit2.getText().toString().length() == 0)
-                {
-                    Toast.makeText(getApplicationContext(), "값을 입력하세요.", Toast.LENGTH_SHORT).show();
-                    textresult.setText("계산결과: none" );
-                }
-                else {
-                    result = Integer.parseInt(num1) % Integer.parseInt(num2);
-                    textresult.setText("계산결과: " + result.toString());
-                }
-            }
-        });
-
 
     }
 }
