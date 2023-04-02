@@ -1,39 +1,39 @@
 package bsj.io.exam03;
 
-import android.app.TabActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ViewFlipper;
 
-public class MainActivity extends TabActivity {
+public class MainActivity extends AppCompatActivity {
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabHost tabHost = getTabHost();
+        Button btnStart, btnStop;
+        final ViewFlipper vFlipper;
 
-        TabSpec tabSpec1 = tabHost.newTabSpec("TAG1").setIndicator("강아지");
-        tabSpec1.setContent(R.id.imageView1);
-        tabHost.addTab(tabSpec1);
+        btnStart = (Button) findViewById(R.id.btnStart);
+        btnStop = (Button) findViewById(R.id.btnStop);
 
-        TabSpec tabSpec2 = tabHost.newTabSpec("TAG2").setIndicator("고양이");
-        tabSpec2.setContent(R.id.imageView2);
-        tabHost.addTab(tabSpec2);
+        vFlipper = (ViewFlipper) findViewById(R.id.viewFlipper1);
 
-        TabSpec tabSpec3 = tabHost.newTabSpec("TAG3").setIndicator("토끼");
-        tabSpec3.setContent(R.id.imageView3);
-        tabHost.addTab(tabSpec3);
+        vFlipper.setFlipInterval(1000);
 
-        TabSpec tabSpec4 = tabHost.newTabSpec("TAG4").setIndicator("말");
-        tabSpec4.setContent(R.id.imageView4);
-        tabHost.addTab(tabSpec4);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                vFlipper.startFlipping();
+            }
+        });
 
-        tabHost.setCurrentTab(0);
-
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                vFlipper.stopFlipping();
+            }
+        });
     }
-
 
 }
