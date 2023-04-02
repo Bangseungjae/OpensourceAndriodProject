@@ -1,66 +1,39 @@
 package bsj.io.exam03;
 
-import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
+import android.app.TabActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ScrollView;
+import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
 
-import androidx.appcompat.app.AppCompatActivity;
+public class MainActivity extends TabActivity {
 
-public class MainActivity extends AppCompatActivity {
-    ScrollView scrollView, scrollView2;
-    ImageView imageView, imageView2;
-    BitmapDrawable bitmap;
-    int count = 0;
-
+    @SuppressWarnings("deprecation")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //레이아웃에 정의된 뷰 객체 참조
-        scrollView = findViewById(R.id.scrollView);
-        scrollView.setHorizontalScrollBarEnabled(true);
+        TabHost tabHost = getTabHost();
 
-        scrollView2 = findViewById(R.id.scrollView2);
-        scrollView2.setHorizontalScrollBarEnabled(true);
+        TabSpec tabSpec1 = tabHost.newTabSpec("TAG1").setIndicator("강아지");
+        tabSpec1.setContent(R.id.imageView1);
+        tabHost.addTab(tabSpec1);
 
-        imageView = findViewById(R.id.imageView);
-        imageView2 = findViewById(R.id.imageView2);
+        TabSpec tabSpec2 = tabHost.newTabSpec("TAG2").setIndicator("고양이");
+        tabSpec2.setContent(R.id.imageView2);
+        tabHost.addTab(tabSpec2);
 
-        Resources res = getResources();
-        bitmap = (BitmapDrawable) res.getDrawable(R.drawable.newjeans);
+        TabSpec tabSpec3 = tabHost.newTabSpec("TAG3").setIndicator("토끼");
+        tabSpec3.setContent(R.id.imageView3);
+        tabHost.addTab(tabSpec3);
 
-        int bitmapwidth = bitmap.getIntrinsicWidth();
-        int bitmapheight = bitmap.getIntrinsicHeight();
+        TabSpec tabSpec4 = tabHost.newTabSpec("TAG4").setIndicator("말");
+        tabSpec4.setContent(R.id.imageView4);
+        tabHost.addTab(tabSpec4);
 
-        //리소스 이미지 크기 설정
-        imageView.setImageDrawable(bitmap);
-        imageView.getLayoutParams().width = bitmapwidth;
-        imageView.getLayoutParams().height = bitmapheight;
+        tabHost.setCurrentTab(0);
 
-        imageView2.setImageDrawable(bitmap);
-        imageView2.getLayoutParams().width = bitmapwidth;
-        imageView2.getLayoutParams().height = bitmapheight;
-
-        imageView2.setVisibility(View.INVISIBLE); //처음에는 밑에 안보이게게
-    }
-    public void onClickup(View v){
-        changeImageUp();
-    }
-    public void onClickdown(View v){
-        changeImageDown();
     }
 
-    public void changeImageUp(){
-        imageView2.setVisibility(View.INVISIBLE);
-        imageView.setVisibility(View.VISIBLE);
-    }
 
-    public void changeImageDown() {
-        imageView.setVisibility(View.INVISIBLE);
-        imageView2.setVisibility(View.VISIBLE);
-    }
 }
