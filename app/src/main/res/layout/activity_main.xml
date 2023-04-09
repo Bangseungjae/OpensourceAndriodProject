@@ -1,26 +1,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical" >
 
     <DatePicker
+        android:datePickerMode="spinner"
         android:id="@+id/datePicker1"
-        android:calendarViewShown="false"
-        android:layout_height="400dp"
-        android:layout_width="400dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false" />
 
     <EditText
+        android:layout_weight="1"
         android:id="@+id/edtDiary"
         android:background="#00ff00"
-        android:layout_width="500dp"
-        android:layout_height="500dp" />
+        android:lines="8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </EditText>
 
     <Button
         android:id="@+id/btnWrite"
-        android:enabled="false"
-        android:text="Button"
-         android:layout_height="100dp"
-        android:layout_width="100dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>
