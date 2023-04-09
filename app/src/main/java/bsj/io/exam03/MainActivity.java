@@ -1,77 +1,58 @@
 package bsj.io.exam03;
 
-import java.io.File;
-import java.util.Arrays;
-
-import android.os.Environment;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
-    Button btnPrev, btnNext;
-    myPictureView myPicture;
-    TextView tvNumber;
-    int curNum=0;
-    File[] imageFiles = new File[0];
-    String imageFname;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setTitle("간단 이미지 뷰어 (변경)");
-        ActivityCompat.requestPermissions(this, new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE},MODE_PRIVATE);
+        setContentView(new MyGraphicView(this));
+    }
 
-        btnPrev = (Button) findViewById(R.id.btnPrev);
-        btnNext = (Button) findViewById(R.id.btnNext);
-        tvNumber = (TextView) findViewById(R.id.tvNumber);
-        myPicture = (myPictureView) findViewById(R.id.myPictureView1);
+    private static class MyGraphicView extends View {
+        public MyGraphicView(Context context) {
+            super(context);
+        }
 
-        File[] allFiles = new File(Environment.getExternalStorageDirectory()
-                .getAbsolutePath()+"/Pictures").listFiles();
-        for (int i=0; i<allFiles.length; i++)
-            if (allFiles[i].isFile()) {
-                imageFiles = Arrays.copyOf(imageFiles, imageFiles.length + 1);
-                imageFiles[imageFiles.length-1] = allFiles[i];
-            }
-        imageFname = imageFiles[curNum].toString();
-        myPicture.imagePath = imageFname;
-        tvNumber.setText("1" + "/" + (imageFiles.length));
+        @Override
+        protected void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            Paint paint = new Paint();
+            paint.setAntiAlias(true);
 
-        btnPrev.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (curNum <= 0) {
-                    curNum = imageFiles.length - 1;
-                } else {
-                    curNum--;
-                }
-                imageFname = imageFiles[curNum].toString();
-                myPicture.imagePath = imageFname;
-                myPicture.invalidate();
-                tvNumber.setText((curNum+1) + "/" + (imageFiles.length));
+            paint.setStrokeWidth(60);
+            canvas.drawLine(60, 60, 600, 60, paint);
 
-            }
-        });
+            paint.setStrokeCap(Paint.Cap.ROUND);
+            canvas.drawLine(60, 160, 600, 160, paint);
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (curNum >= imageFiles.length - 1) {
-                    curNum = 0;
-                } else {
-                    curNum++;
-                }
-                imageFname = imageFiles[curNum].toString();
-                myPicture.imagePath = imageFname;
-                myPicture.invalidate();
-                tvNumber.setText( (curNum+1) + "/" + (imageFiles.length));
-            }
-        });
+            RectF rectF = new RectF();
 
+            rectF.set(120, 240, 120 + 400, 200 + 200);
+            canvas.drawOval(rectF, paint);
+
+            rectF.set(120, 340, 120 + 200, 340 + 200);
+            canvas.drawArc(rectF, 40, 110, true, paint);
+
+            paint.setColor(Color.BLUE);
+            rectF.set(120, 560, 120 + 200, 560 + 200);
+            canvas.drawRect(rectF, paint);
+
+            paint.setColor(Color.argb(0x88, 0xff, 0x00, 0x00));
+            rectF.set(180, 620, 180 + 200, 620 + 200);
+            canvas.drawRect(rectF, paint);
+
+        }
     }
 
 }
+
+
