@@ -1,79 +1,54 @@
 package bsj.io.exam03;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity2";
-
-    private Button btnDial, btnEnd;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("액티비티 테스트 예제");
+        setTitle("메인 엑티비티");
 
-        Log.i(TAG, "onCreate()");
+        final EditText edtNum1 = findViewById(R.id.edtNum1);
+        final EditText edtNum2 = findViewById(R.id.edtNum2);
+        final RadioGroup rdoGroup = findViewById(R.id.rdoGroup);
+        Button btnNewActivity = findViewById(R.id.btnNewActivity);
 
-        init();
-        initLr();
-    }
+        btnNewActivity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart()");
-    }
+                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
+                if (rdoGroup.getCheckedRadioButtonId()==R.id.rdoAdd) intent.putExtra("Calc","+");
+                else if (rdoGroup.getCheckedRadioButtonId()==R.id.rdoSub) intent.putExtra("Calc","-");
+                else if (rdoGroup.getCheckedRadioButtonId()==R.id.rdoMul) intent.putExtra("Calc","*");
+                else if (rdoGroup.getCheckedRadioButtonId()==R.id.rdoDiv) intent.putExtra("Calc","/");
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop()");
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy()");
-    }
+                intent.putExtra("Num1",
+                        Integer.parseInt(edtNum1.getText().toString()));
+                intent.putExtra("Num2",
+                        Integer.parseInt(edtNum2.getText().toString()));
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause()");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume()");
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i(TAG, "onRestart()");
-    }
-
-    public void init(){
-        btnDial = findViewById(R.id.btnDial);
-        btnEnd = findViewById(R.id.btnEnd);
-    }
-
-    public void initLr(){
-        btnDial.setOnClickListener(v ->{
-            Uri uri = Uri.parse("tel:01012345678");
-            Intent intent = new Intent(Intent.ACTION_DIAL, uri);
-            startActivity(intent);
+                startActivityForResult(intent, 0);
+            }
         });
-        btnEnd.setOnClickListener(v ->{
-            finish();
-        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            int hap = data.getIntExtra("Hap", 0);
+            Toast.makeText(getApplicationContext(), "결과 :" + hap,
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }
