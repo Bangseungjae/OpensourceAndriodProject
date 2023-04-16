@@ -1,16 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/rdoSecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Second 액티비티" />
+
+        <RadioButton
+            android:id="@+id/rdoThird"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Third 액티비티" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/btnNewActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2020039110 방승재" />
+        android:text="새 화면 열기" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>

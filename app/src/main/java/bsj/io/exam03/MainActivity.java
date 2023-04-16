@@ -1,32 +1,37 @@
 package bsj.io.exam03;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity {
-
-    private Button btnNewActivity;
+public class MainActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("메인 액티비티 (수정)");
 
-        init();
-        initLr();
-    }
+        final RadioButton rdoSecond = (RadioButton) findViewById(R.id.rdoSecond);
 
-    public void init(){
-        btnNewActivity = findViewById(R.id.btnNewActivity);
-    }
+        Button btnNewActivity = (Button) findViewById(R.id.btnNewActivity);
+        btnNewActivity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent;
 
-    public void initLr(){
-        btnNewActivity.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), second.class);
-            startActivity(intent);
+                if (rdoSecond.isChecked() == true)
+                    intent = new Intent(getApplicationContext(),
+                            SecondActivity.class);
+                else
+                    intent = new Intent(getApplicationContext(),
+                            ThirdActivity.class);
+
+                startActivity(intent);
+            }
         });
     }
+
 }
