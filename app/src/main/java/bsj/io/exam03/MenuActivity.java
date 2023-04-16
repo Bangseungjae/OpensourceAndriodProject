@@ -6,53 +6,61 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity {
+    Button customButton;
+    Button salesButton;
+    Button mdButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu);
+        setContentView(R.layout.activity_menu);
 
-        Button btnCustomerManagement = findViewById(R.id.btnCustomerManagement);
-        Button btnProductManagement = findViewById(R.id.btnProductManagement);
-        Button btnSalesManagement = findViewById(R.id.btnSalesManagement);
+        customButton = findViewById(R.id.customButton);
+        salesButton = findViewById(R.id.salesButton);
+        mdButton = findViewById(R.id.mdButton);
 
-        btnCustomerManagement.setOnClickListener(new View.OnClickListener() {
+
+        Intent intent = new Intent();
+        intent = getIntent();
+        String id = intent.getStringExtra("id");
+        String password = intent.getStringExtra("password");
+
+        if(id != null)
+        {
+            Toast toast =
+                    Toast.makeText(getApplicationContext(),"ID : "+id +" Password : "+password +" 으로 로그인 됨!",Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+
+        customButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("menu", btnCustomerManagement.getText());
-
-                setResult(RESULT_OK, intent);
-
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),CustomerActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
 
-        btnProductManagement.setOnClickListener(new View.OnClickListener() {
+        salesButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("menu", btnProductManagement.getText());
-
-                setResult(RESULT_OK, intent);
-
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),SalesActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
 
-        btnSalesManagement.setOnClickListener(new View.OnClickListener() {
+        mdButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("menu", btnSalesManagement.getText());
-
-                setResult(RESULT_OK, intent);
-
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),MdActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
-
     }
 }
