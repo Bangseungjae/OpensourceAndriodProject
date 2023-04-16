@@ -5,12 +5,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnNewActivity"
+        android:id="@+id/btnReturn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2020039110 방승재" />
+        android:text="돌아가기" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
