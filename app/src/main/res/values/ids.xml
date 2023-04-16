@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tv2" type="id" />
+    <item name="rbar1" type="id" />
+    <item name="tv1" type="id" />
+    <item name="rbar2" type="id" />
+    <item name="tv3" type="id" />
+    <item name="rbar3" type="id" />
+    <item name="tv4" type="id" />
+    <item name="rbar4" type="id" />
+    <item name="tv5" type="id" />
+    <item name="rbar5" type="id" />
+    <item name="tv6" type="id" />
+    <item name="rbar6" type="id" />
+    <item name="tv7" type="id" />
+    <item name="rbar7" type="id" />
+    <item name="tv8" type="id" />
+    <item name="rbar8" type="id" />
+    <item name="tv9" type="id" />
+    <item name="rbar9" type="id" />
+    <item name="btnReturn" type="id" />
+</resources>
